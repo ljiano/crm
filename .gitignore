@@ -1,0 +1,4 @@
+/crm/.idea/
+/crm/crm.iml
+/crm/*/target/
+/crm/*/*.iml

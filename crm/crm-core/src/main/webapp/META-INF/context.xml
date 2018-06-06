@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="/">
+    <Resource name="siniteksirm" auth="Container"
+              type="javax.sql.DataSource"
+              driverClassName="oracle.jdbc.OracleDriver"
+              url="jdbc:oracle:thin:@172.16.2.17:1521:orcl"
+              username="rbzb_aim"
+              password="rbzb_aim"
+              maxActive="20"
+              maxIdle="10"
+              maxWait="-1"
+              testOnBorrow="true"
+              validationQuery="select 1 from dual" />
+</Context>

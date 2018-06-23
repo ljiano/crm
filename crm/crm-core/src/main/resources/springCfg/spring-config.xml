@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
     <context:component-scan base-package="com.ljo.crm.*">
-        <!-- 扫描时跳过 @Controller 注解的JAVA类（控制器） -->
-        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <!--<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />-->
     </context:component-scan>
 
     <!--********************************************配置hibernate********************************************-->
@@ -36,6 +35,33 @@
                 <prop key="hibernate.dialect">${hibernate.dialect}</prop>   <!--指定数据库方言-->
                 <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>     <!--在控制台显示执行的数据库操作语句-->
                 <prop key="hibernate.format_sql">${hibernate.format_sql}</prop>     <!--在控制台显示执行的数据哭操作语句（格式）-->
+            <!--</props>-->
+            <!--<props>-->
+                <!-- 定义数据库方言 -->
+                <!--<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>-->
+                <!--<prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>-->
+                <!-- 输出sql -->
+                <!--<prop key="hibernate.show_sql">false</prop>-->
+                <!-- 输出格式化的sql -->
+                <!--<prop key="hibernate.format_sql">false</prop>-->
+                <!--<prop key="hibernate.hbm2ddl.auto">none</prop>-->
+                <!--允许使用二级缓存-->
+                <prop key="hibernate.cache.use_second_level_cache">false</prop>
+                <!--选择的缓存器是EhCache-->
+                <prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>
+                <prop key="javax.persistence.validation.mode">none</prop>
+                <!--允许使用查询缓存-->
+                <prop key="hibernate.cache.use_query_cache">false</prop>
+                <prop key="hibernate.connection.pool_size">2048</prop>
+                <!--以下是解决mysql间歇性失去连接的配置-->
+                <prop key="hibernate.connection.autoReconnect">true</prop>
+                <prop key="hibernate.connection.autoReconnectForPools">true</prop>
+                <prop key="hibernate.connection.is-connection-validation-required">true</prop>
+                <!--<property name="current_session_context_class">thread</property>-->
+                <!--这个属性的作用:这样配置是本地jdbc事务配置,你通过getCurrentSession创建的session会绑定到当前线程-->
+
+                <!--把session要绑定的上下文设置为由spring环境管理,    默认-->
+                <!--<prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate4.SpringSessionContext</prop>-->
             </props>
         </property>
     </bean>
@@ -44,5 +70,8 @@
     <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
+
+
+    <tx:annotation-driven transaction-manager="transactionManager"/><!--启动注解用注解来管理事务-->
 
 </beans>

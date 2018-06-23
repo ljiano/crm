@@ -9,27 +9,25 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>User list</title>
+    <title>Product list</title>
 </head>
 <body>
-<a href="/crm/user/edituser.jsp">新增</a>
+<a href="/crm/product/editproduct.jsp">新增</a>
 <table>
     <tr>
         <td>序号</td>
-        <td>姓名</td>
-        <td>性别</td>
+        <td>产品名称</td>
         <td>状态</td>
         <td>操作</td>
     </tr>
-    <c:forEach items="${users}" var="user" varStatus="index">
+    <c:forEach items="${products}" var="product" varStatus="index">
     <tr>
         <td>${index.count}</td>
-        <td>${user.username}</td>
-        <td>${user.sex}</td>
-        <td>${user.removeFlag}</td>
+        <td>${product.productName}</td>
+        <td>${product.removeFlag}</td>
         <td>
             <a href="">编辑</a>
-            <a href="/user/delete/${user.id}">删除</a>
+            <a href="/product/delete/${product.id}">删除</a>
         </td>
     </tr>
     </c:forEach>

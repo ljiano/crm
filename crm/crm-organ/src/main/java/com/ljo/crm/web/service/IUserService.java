@@ -16,7 +16,7 @@ public interface IUserService {
      * @param id
      * @return
      */
-    public User findUserById(Long id);
+    public User findUserById(Integer id);
 
     /**
      * 保存用户
@@ -24,11 +24,17 @@ public interface IUserService {
      */
     public void saveUser(User user);
 
+    public void updateUser(User user);
+
+    public void updateUser(Integer id);
+
+    public void updateUser(Integer id, Map userMap);
+
     /**
      * 删除用户 /逻辑删除
-     * @param user
+     * @param id
      */
-    public void removeUser(User user);
+    public void removeUser(Integer id);
 
     /**
      * 删除用户 /物理删除

@@ -12,5 +12,23 @@
     <artifactId>crm-product</artifactId>
     <packaging>war</packaging>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.ljo</groupId>
+            <artifactId>crm-core</artifactId>
+            <version>${project.version}</version>
+            <type>war</type>
+            <scope>provided</scope>
+        </dependency>
 
+        <!--用来防止maven编译不不到依赖的类-->
+        <dependency>
+            <groupId>com.ljo</groupId>
+            <artifactId>crm-core</artifactId>
+            <version>${project.version}</version>
+            <type>jar</type>
+            <classifier>classes</classifier>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 </project>

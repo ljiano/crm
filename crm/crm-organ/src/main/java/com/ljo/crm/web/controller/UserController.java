@@ -1,7 +1,7 @@
 package com.ljo.crm.web.controller;
 
-import com.ljo.crm.dao.IUserDao;
 import com.ljo.crm.pojo.User;
+import com.ljo.crm.web.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,30 +22,25 @@ import java.util.Map;
 public class UserController {
 
     @Autowired
-    private IUserDao userDao;
+    private IUserService userService;
 
     @RequestMapping(value = {"/editor","/editor/{id}"}, method = RequestMethod.POST)
-    public ModelAndView addUser(@RequestParam Map param, @PathVariable(required = false) Integer id, ModelAndView modelAndView) {
-
-        if(id == null || id.intValue() <= 0) {
-            User user = new User();
-            user.setLoginname("jb.liang");
-            user.setSex(1);
-            user.setUsername("梁剑波");
-            user.setPassword("1");
-            userDao.save(user);
-            List<User> users = userDao.findAll();
-            modelAndView.addObject("users", users);
-        } else {
-
-        }
-        modelAndView.setViewName("/crm/user/userlist");
-        return modelAndView;
+    public String addUser(@RequestParam Map param, @PathVariable(required = false) Integer id, ModelAndView modelAndView) {
+        userService.updateUser(id, param);
+        return "redirect:/user/users";
     }
 
     @RequestMapping("/users")
     public ModelAndView listUser(ModelAndView modelAndView) {
+        List<User> list = userService.findAll();
+        modelAndView.addObject("users", list);
         modelAndView.setViewName("/crm/user/userlist");
         return modelAndView;
+    }
+
+    @RequestMapping("/delete/{id}")
+    public String removeUser(@PathVariable Integer id) {
+        userService.removeUser(id);
+        return "redirect:/user/users";
     }
 }

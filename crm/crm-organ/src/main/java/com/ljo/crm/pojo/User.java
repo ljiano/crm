@@ -6,13 +6,13 @@ import javax.persistence.*;
  * creator : jb.liang
  * time : 13:37
  */
-@Entity
+@Entity(name = "User")
 @Table(name = "dc_user")
 public class User {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private Integer id;
 
     @Column
     private String username;
@@ -25,11 +25,11 @@ public class User {
     @Column
     private Integer removeFlag;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

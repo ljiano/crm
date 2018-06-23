@@ -21,6 +21,8 @@ public interface BaseDao<T,PK extends Serializable>{
 
     void saveOrUpdate(T entity);
 
+    void merge(T entity);
+
     void delete(PK id);
 
     void flush();

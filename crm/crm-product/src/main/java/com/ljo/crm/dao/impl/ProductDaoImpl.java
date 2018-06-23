@@ -1,10 +1,9 @@
 package com.ljo.crm.dao.impl;
 
-import com.ljo.crm.dao.IUserDao;
 import com.ljo.crm.enums.VaildEnum;
-import com.ljo.crm.pojo.User;
-import com.ljo.crm.util.NumberUtil;
 import com.ljo.crm.util.StringUtil;
+import com.ljo.crm.dao.IProductDao;
+import com.ljo.crm.pojo.Product;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -19,52 +18,52 @@ import java.util.Map;
  * time : 17:09
  */
 @Repository
-public class UserDaoImpl implements IUserDao {
+public class ProductDaoImpl implements IProductDao {
 
     @Autowired
     private SessionFactory sessionFactory;
 
     @Override
-    public User load(Integer id) {
+    public Product load(Integer id) {
         return null;
     }
 
     @Override
-    public User get(Integer id) {
-        return (User) this.getCurrentSession().load(User.class, id);
+    public Product get(Integer id) {
+        return (Product) this.getCurrentSession().load(Product.class, id);
     }
 
     @Override
-    public List<User> findAll() {
-        String hql = "from User";
+    public List<Product> findAll() {
+        String hql = "from Product";
         return this.getCurrentSession().createQuery(hql).list();
     }
 
     @Override
-    public void persist(User entity) {
+    public void persist(Product entity) {
 
     }
 
     @Override
-    public Integer save(User entity) {
+    public Integer save(Product entity) {
         return (Integer) this.getCurrentSession().save(entity);
     }
 
     @Override
-    public void saveOrUpdate(User entity) {
+    public void saveOrUpdate(Product entity) {
         this.getCurrentSession().saveOrUpdate(entity);
     }
 
     @Override
-    public void merge(User entity) {
+    public void merge(Product entity) {
         this.getCurrentSession().merge(entity);
     }
 
     @Override
     public void delete(Integer id) {
-        User user = load(id);
-        if(user != null) {
-            this.getCurrentSession().delete(user);
+        Product product = load(id);
+        if(product != null) {
+            this.getCurrentSession().delete(product);
         }
     }
 
@@ -78,51 +77,48 @@ public class UserDaoImpl implements IUserDao {
     }
 
     @Override
-    public void removeUser(Integer id) {
+    public void removeProduct(Integer id) {
         Session session = getCurrentSession();
         //Transaction transaction = session.beginTransaction();
-        User user = null;
-        Object obj =  session.get(User.class, id);
+        Product product = null;
+        Object obj =  session.get(Product.class, id);
         if(obj != null){
-            user = (User) obj;
-            user.setRemoveFlag(VaildEnum.UNVAILD);
-            session.update(user);
+            product = (Product) obj;
+            product.setRemoveFlag(VaildEnum.UNVAILD);
+            session.update(product);
             //transaction.commit();
         }
         //session.close();
     }
 
     @Override
-    public List<Map> findUser(Map param) {
+    public List<Map> findProduct(Map param) {
         String sql = "";
 
         return null;
     }
 
     @Override
-    public List<User> findUserInfo(Map param) {
-        Query query = this.getCurrentSession().createQuery(" from User as u where u.username like :username");
-        query.setParameter("username", "%"+ param.get("username") +"%");
+    public List<Product> findProductInfo(Map param) {
+        Query query = this.getCurrentSession().createQuery(" from Product as u where u.productname like :productname");
+        query.setParameter("productname", "%"+ param.get("productname") +"%");
         return query.list();
     }
 
     @Override
-    public void updateUser(Integer id, Map useMap) {
+    public void updateProduct(Integer id, Map useMap) {
         Session session = getCurrentSession();
-        User user = null;
+        Product product = null;
         if(id != null && id.intValue() > 0){
-            Object obj =  session.get(User.class, id);
+            Object obj =  session.get(Product.class, id);
             if(obj != null){
-                user = (User) obj;
+                product = (Product) obj;
             }
         }
-        if(user == null){
-            user = new User();
+        if(product == null){
+            product = new Product();
         }
-        user.setSex(NumberUtil.safeToInteger(useMap.get("sex"), 1));
-        user.setUsername(StringUtil.safeToString(useMap.get("username"), null));
-        user.setLoginname(user.getUsername());
-        user.setPassword("1");
-        session.saveOrUpdate(user);
+        product.setProductName(StringUtil.safeToString(useMap.get("productName"), null));
+        session.saveOrUpdate(product);
     }
 }

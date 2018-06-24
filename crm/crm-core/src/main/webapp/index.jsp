@@ -16,7 +16,7 @@
 <a href="/product/products">产品管理</a>
 <a href="">分期管理</a>
 <a href="">企业管理</a>
-<a href="">客户管理</a>
+<a href="/client/clients">客户管理</a>
 <a href="">合同管理</a>
 <a href="">统计管理</a>
 <a href="">交易生命周期</a>

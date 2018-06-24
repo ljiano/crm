@@ -10,8 +10,8 @@ import java.util.Date;
  * Time: 22:50
  * 合同
  */
-@Entity(name = "Contact")
-@Table(name = "crm_contact")
+@Entity(name = "Contract")
+@Table(name = "crm_contract")
 public class Contract {
 
     @Id

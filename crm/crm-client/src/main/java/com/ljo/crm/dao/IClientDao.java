@@ -2,6 +2,9 @@ package com.ljo.crm.dao;
 
 import com.ljo.crm.pojo.Client;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * Created by IntelliJ IDEA.
  * User: jb.liang
@@ -10,4 +13,9 @@ import com.ljo.crm.pojo.Client;
  * To change this template use File | Settings | File Templates.
  */
 public interface IClientDao extends BaseDao<Client, Integer>{
+
+    public List<Client> findClients();
+
+    public List<Map> findClientsByParam(Map param);
+
 }

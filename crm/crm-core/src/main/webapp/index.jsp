@@ -6,19 +6,22 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Title</title>
-</head>
-<body>
+<%@ include file="/crm/header.jsp" %>
 
-<a href="/user/users">用户管理</a>
-<a href="/product/products">产品管理</a>
-<a href="">分期管理</a>
-<a href="">企业管理</a>
-<a href="/client/clients">客户管理</a>
-<a href="">合同管理</a>
-<a href="">统计管理</a>
-<a href="">交易生命周期</a>
-</body>
-</html>
+<div>
+    <table class="easyui-datagrid" title="Basic DataGrid" style="width:100%;height:250px"
+           data-options="singleSelect:true,collapsible:true,url:'datagrid_data1.json',method:'get'">
+        <thead>
+        <tr>
+            <th data-options="field:'itemid',width:80">Item ID</th>
+            <th data-options="field:'productid',width:100">Product</th>
+            <th data-options="field:'listprice',width:80,align:'right'">List Price</th>
+            <th data-options="field:'unitcost',width:80,align:'right'">Unit Cost</th>
+            <th data-options="field:'attr1',width:250">Attribute</th>
+            <th data-options="field:'status',width:60,align:'center'">Status</th>
+        </tr>
+        </thead>
+    </table>
+</div>
+
+<%@ include file="/crm/footer.jsp" %>

@@ -1,7 +1,5 @@
 package com.ljo.crm.web.controller;
 
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.parser.DefaultJSONParser;
 import com.ljo.crm.web.service.ICompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,11 +40,7 @@ public class CompanyController {
 
     @GetMapping("/table")
     @ResponseBody
-    public Object listCompanys(@RequestParam Map param){
-        Map result = new HashMap();
-        List<Map> list = companyService.findCompanys(param);
-        result.put("rows", list);
-        result.put("total", companyService.findCountCompanys());
-        return result;
+    public Object tableCompanys(@RequestParam Map param){
+        return companyService.tableCompanys(param);
     }
 }

@@ -18,4 +18,6 @@ public interface IClientDao extends BaseDao<Client, Integer>{
 
     public List<Map> findClientsByParam(Map param);
 
+    public List<Client> findUserClients(int oId, Map param);
+
 }

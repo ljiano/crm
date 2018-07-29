@@ -15,4 +15,6 @@ public interface ICompanyService {
     public List<Map> findCompanys(Map map);
 
     public Long findCountCompanys();
+
+    public Map tableCompanys(Map param);
 }

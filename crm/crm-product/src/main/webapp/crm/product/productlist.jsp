@@ -1,39 +1,37 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: user1
-  Date: 2018/6/4
-  Time: 14:42
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Product list</title>
-</head>
-<body>
-<a href="/crm/product/editproduct.jsp">新增</a>
-<table>
-    <tr>
-        <td>序号</td>
-        <td>产品名称</td>
-        <td>状态</td>
-        <td>操作</td>
-    </tr>
-    <c:forEach items="${products}" var="product" varStatus="index">
-    <tr>
-        <td>${index.count}</td>
-        <td>${product.productName}</td>
-        <td>${product.removeFlag}</td>
-        <td>
-            <a href="">编辑</a>
-            <a href="/product/delete/${product.id}">删除</a>
-        </td>
-    </tr>
-    </c:forEach>
+<%@ include file="/crm/header.jsp" %>
+
+<script>
+    $(function(){
+        $("#product").datagrid({
+            url:'/product/table',
+            method:'get',
+            editors: $.fn.datagrid.defaults.editors,
+            columns:[[
+                {field:'',checkbox:true, width:20},
+                {field:'productName',title:'产品名称',sortable:true,align:'left', width:200},
+                {field:'removeFlag',title:'是否生效',sortable:true,align:'center', width:80,editor:{type:'checkbox',options:{on:'1',off:'0'}}}
+            ]],
+            pagination:true,
+            pageNumber:1,
+            pageSize:10,
+            pageList:[10,20,30,50,100,200],
+            singleSelect:false,
+            rowNumbers:true,
+            toolbar:'#tb',
+            checkOnSelect:false,
+            selectOnCheck:true
+        });
+    });
+
+</script>
+<div id="tb" style="padding:5px;height:auto">
+    <div style="margin-bottom:5px">
+        <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true"></a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true"></a>
+    </div>
+</div>
+<table id="product" title="产品信息">
+
 </table>
-
-
-
-</body>
-</html>
+<%@ include file="/crm/footer.jsp" %>

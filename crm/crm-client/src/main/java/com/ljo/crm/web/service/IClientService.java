@@ -22,4 +22,13 @@ public interface IClientService {
 
     public List<Map> findClientsByParam(Map param);
 
+    /**
+     * 事务传播隔离学习测试
+     * 用户纳入客户，并生成第一期
+     * @param client   客户信息
+     * @param oId   用户Id
+     * @return cpId  第一期Id
+     */
+    public int saveAndSelectClient(Map client, int oId);
+
 }

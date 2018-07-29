@@ -4,10 +4,7 @@ import com.ljo.crm.pojo.Client;
 import com.ljo.crm.web.service.IClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -36,8 +33,14 @@ public class ClientController {
     }
 
     @RequestMapping(value = {"/editor","/editor/{id}"}, method = RequestMethod.POST)
-    public String addUser(@RequestParam Map properties, @PathVariable(required = false) Integer id, ModelAndView modelAndView) {
+    public String addClient(@RequestParam Map properties, @PathVariable(required = false) Integer id, ModelAndView modelAndView) {
         clientService.saveOrUpdateClient(id, properties);
         return "redirect:/client/clients";
+    }
+
+    @RequestMapping("/select")
+    @ResponseBody
+    public Object saveClient(@RequestParam Map properties) {
+        return clientService.saveAndSelectClient(properties, 1);
     }
 }

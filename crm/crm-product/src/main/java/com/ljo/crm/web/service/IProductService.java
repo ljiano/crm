@@ -42,7 +42,7 @@ public interface IProductService {
      */
     public void deleteProduct(Product product);
 
-    public List<Map> findProduct(Map param);
+    public  Map tableProducts(Map param);
 
     public List<Product> findProductInfo(Map param);
 

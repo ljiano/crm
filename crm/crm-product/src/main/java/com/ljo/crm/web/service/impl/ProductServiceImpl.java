@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -64,8 +65,13 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public List<Map> findProduct(Map param) {
-        return null;
+    @Transactional(readOnly = true)
+    public Map tableProducts(Map param) {
+        Map result = new HashMap();
+        result.put("rows", productDao.findProductInfo(param));
+        //result.put("rows", productDao.findProduct(param));
+        result.put("total", productDao.findCountProducts());
+        return result;
     }
 
     @Override

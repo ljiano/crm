@@ -93,4 +93,14 @@ public class ClientDaoImpl implements IClientDao {
     public void flush() {
 
     }
+
+    @Override
+    public List<Client> findUserClients(int oId, Map param) {
+        String hql = "from Client where managerId=:managerId";
+        Query query = this.getCurrentSession().createQuery(hql).setParameter("managerId", oId);
+        if(param != null && !param.isEmpty()){
+            //todo
+        }
+        return query.list();
+    }
 }

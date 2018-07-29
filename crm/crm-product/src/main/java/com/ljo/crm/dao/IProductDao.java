@@ -19,6 +19,8 @@ public interface IProductDao extends BaseDao<Product, Integer> {
 
     public List<Map> findProduct(Map param);
 
+    public Long findCountProducts();
+
     public List<Product> findProductInfo(Map param);
 
     public void updateProduct(Integer id, Map useMap);

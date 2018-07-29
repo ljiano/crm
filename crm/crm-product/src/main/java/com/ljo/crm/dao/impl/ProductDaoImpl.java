@@ -1,15 +1,22 @@
 package com.ljo.crm.dao.impl;
 
 import com.ljo.crm.enums.VaildEnum;
+import com.ljo.crm.util.NumberUtil;
 import com.ljo.crm.util.StringUtil;
 import com.ljo.crm.dao.IProductDao;
 import com.ljo.crm.pojo.Product;
+import org.codehaus.jackson.node.BigIntegerNode;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.CriteriaSpecification;
+import org.hibernate.loader.criteria.CriteriaQueryTranslator;
+import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
 
@@ -93,15 +100,33 @@ public class ProductDaoImpl implements IProductDao {
 
     @Override
     public List<Map> findProduct(Map param) {
-        String sql = "";
+        String sql = "select * from dc_product";
+        SQLQuery query = this.getCurrentSession().createSQLQuery(sql);
+        int page = NumberUtil.safeToInteger(param.get("page"), 1);
+        int rows = NumberUtil.safeToInteger(param.get("rows"), 10);
+        query.setFirstResult((page - 1) * rows);
+        query.setMaxResults(rows);
+        query.setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
+        return query.list();
+    }
 
-        return null;
+    @Override
+    public Long findCountProducts() {
+//        String sql = "select count(*) from dc_product";
+//        SQLQuery query = this.getCurrentSession().createSQLQuery(sql);
+//        return ((BigInteger)query.list().get(0)).longValue();
+        return (Long) this.getCurrentSession().createQuery("select count(*) from Product").uniqueResult();
     }
 
     @Override
     public List<Product> findProductInfo(Map param) {
-        Query query = this.getCurrentSession().createQuery(" from Product as u where u.productname like :productname");
-        query.setParameter("productname", "%"+ param.get("productname") +"%");
+        String sql = "from Product";
+        Query query = this.getCurrentSession().createQuery(sql);
+        int page = NumberUtil.safeToInteger(param.get("page"), 1);
+        int rows = NumberUtil.safeToInteger(param.get("rows"), 10);
+        query.setFirstResult((page - 1) * rows);
+        query.setMaxResults(rows);
+        //query.setResultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP);
         return query.list();
     }
 

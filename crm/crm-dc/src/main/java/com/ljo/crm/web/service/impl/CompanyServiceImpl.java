@@ -5,6 +5,7 @@ import com.ljo.crm.web.service.ICompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,5 +30,13 @@ public class CompanyServiceImpl implements ICompanyService {
     @Override
     public Long findCountCompanys() {
         return companyDao.findCountCompanys();
+    }
+
+    @Override
+    public Map tableCompanys(Map param) {
+        Map result = new HashMap();
+        result.put("rows", companyDao.findCompanys(param));
+        result.put("total", companyDao.findCountCompanys());
+        return result;
     }
 }

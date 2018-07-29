@@ -4,12 +4,10 @@ import com.ljo.crm.pojo.Product;
 import com.ljo.crm.web.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -42,5 +40,11 @@ public class ProductController {
     public String removeProduct(@PathVariable Integer id) {
         productService.removeProduct(id);
         return "redirect:/product/products";
+    }
+
+    @GetMapping("/table")
+    @ResponseBody
+    public Object tableProducts(@RequestParam Map param){
+        return productService.tableProducts(param);
     }
 }

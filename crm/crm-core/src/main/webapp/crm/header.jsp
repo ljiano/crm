@@ -170,7 +170,7 @@
                     <a href="#none"><em class="ico ico1"></em>数据中心<i></i></a>
                     <ul class="level2">
                         <li><a href="/crm/listcompanys.jsp">企业信息</a></li>
-                        <li><a href="javascript:;">产品管理</a></li>
+                        <li><a href="/crm/product/productlist.jsp">产品管理</a></li>
                         <li><a href="javascript:;">用户管理</a></li>
                     </ul>
                 </li>

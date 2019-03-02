@@ -5,9 +5,12 @@ import com.ljo.crm.enums.VaildEnum;
 import com.ljo.crm.pojo.User;
 import com.ljo.crm.util.NumberUtil;
 import com.ljo.crm.util.StringUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -101,8 +104,18 @@ public class UserDaoImpl implements IUserDao {
 
     @Override
     public List<User> findUserInfo(Map param) {
-        Query query = this.getCurrentSession().createQuery(" from User as u where u.username like :username");
-        query.setParameter("username", "%"+ param.get("username") +"%");
+        String sql = "select * from dc_user";
+        String sort = StringUtil.safeToString(param.get("sort"), "");
+        String order = StringUtil.safeToString(param.get("order"), "");
+        if(StringUtils.isNotBlank(sort) && StringUtils.isNotBlank(order)) {
+            sql +=" order by " + sort +" " + order;
+        }
+        SQLQuery query = this.getCurrentSession().createSQLQuery(sql);
+        int page = NumberUtil.safeToInteger(param.get("page"), 1);
+        int rows = NumberUtil.safeToInteger(param.get("rows"), 10);
+        query.setFirstResult((page - 1) * rows);
+        query.setMaxResults(rows);
+        query.setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
         return query.list();
     }
 
@@ -124,5 +137,10 @@ public class UserDaoImpl implements IUserDao {
         user.setLoginname(user.getUsername());
         user.setPassword("1");
         session.saveOrUpdate(user);
+    }
+
+    @Override
+    public Long findCountUsers() {
+        return (Long) this.getCurrentSession().createQuery("select count(*) from User").uniqueResult();
     }
 }

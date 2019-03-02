@@ -22,32 +22,30 @@
             sortName:'companyname',
             queryParams:{'total':'${total}'},
             columns:[[
-                {field:'guid',title:'Guid',width:100, align:'left'},
-                {field:'companyname',title:'公司名称',width:100, align:'left',sortable:true},
+                {field:'companyname',title:'公司名称',width:250, align:'left',
+                    formatter: function(value, row, index){
+                        return '<span title="'+value+'" class="easyui-tooltip">'+value+'</span>';
+                    }
+                },
                 {field:'companycode',title:'公司代码',width:100, align:'center'},
-                {field:'address',title:'公司地址',width:100,align:'right'},
+                {field:'address',title:'公司地址',width:200,align:'right'},
                 {field:'city',title:'注册城市',width:100,align:'center'},
                 {field:'qsdate',title:'注册时间',width:100,align:'center'}
             ]],
+            onLoadSuccess: function(){
+                $(".easyui-tooltip").tooltip({
+                    onShow: function () {
+                        $(this).tooltip('tip').css({
+                            borderColor: '#000'
+                        });
+                    }
+                });
+            }
         })
     });
 </script>
 
 <div>
-    <%--<table id="companys" class="easyui-datagrid" title="企业信息" style="width:100%;"--%>
-           <%--data-options="rownumbers:true,singleSelect:true,pagination:true,url:'/company/table',method:'get'">--%>
-        <%--<thead>--%>
-        <%--<tr>--%>
-            <%--<th data-options="field:'guid',align:'left'" width="20%">Guid</th>--%>
-            <%--<th data-options="field:'companyname',align:'left'" width="25%">公司名称</th>--%>
-            <%--<th data-options="field:'companycode',align:'center'" width="10%">公司代码</th>--%>
-            <%--<th data-options="field:'address',align:'left'" width="25%">公司地址</th>--%>
-            <%--<th data-options="field:'city',align:'center'" width="10%">注册城市</th>--%>
-            <%--<th data-options="field:'qsdate',align:'center'" width="10%">注册时间</th>--%>
-        <%--</tr>--%>
-        <%--</thead>--%>
-    <%--</table>--%>
-
     <table id="companys" style="width:100%;">
 
     </table>

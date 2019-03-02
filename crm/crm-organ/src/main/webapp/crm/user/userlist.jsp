@@ -1,41 +1,61 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: user1
-  Date: 2018/6/4
-  Time: 14:42
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>User list</title>
-</head>
-<body>
-<a href="/crm/user/edituser.jsp">新增</a>
-<table>
-    <tr>
-        <td>序号</td>
-        <td>姓名</td>
-        <td>性别</td>
-        <td>状态</td>
-        <td>操作</td>
-    </tr>
-    <c:forEach items="${users}" var="user" varStatus="index">
-    <tr>
-        <td>${index.count}</td>
-        <td>${user.username}</td>
-        <td>${user.sex}</td>
-        <td>${user.removeFlag}</td>
-        <td>
-            <a href="">编辑</a>
-            <a href="/user/delete/${user.id}">删除</a>
-        </td>
-    </tr>
-    </c:forEach>
+<%@ include file="/crm/header.jsp" %>
+
+<script>
+    $(function () {
+        $("#user").datagrid({
+            url: '/user/table',
+            method: 'get',
+            editors: $.fn.datagrid.defaults.editors,
+            columns: [[
+                {field: '', checkbox: true, width: 20},
+                {field: 'username', title: '姓名', sortable: true, align: 'left', width: 200},
+                {
+                    field: 'sex', title: '性别', sortable: true, align: 'left', width: 200,
+                    formatter: function (value) {
+                        if (value == 1) {
+                            return "男";
+                        } else if (value == 2) {
+                            return "女";
+                        }
+                    }
+                },
+                {
+                    field: 'removeFlag',
+                    title: '是否生效',
+                    sortable: true,
+                    align: 'center',
+                    width: 80,
+                    editor: {type: 'checkbox', options: {on: '1', off: '0'}},
+                    formatter: function (value) {
+                        if (value == 1) {
+                            return "是";
+                        } else if (value == 2) {
+                            return "否";
+                        }
+                    }
+                }
+            ]],
+            pagination: true,
+            pageNumber: 1,
+            pageSize: 10,
+            pageList: [10, 20, 30, 50, 100, 200],
+            singleSelect: false,
+            rowNumbers: true,
+            toolbar: '#tb',
+            checkOnSelect: false,
+            selectOnCheck: true
+        });
+    });
+
+</script>
+<div id="tb" style="padding:5px;height:auto">
+    <div style="margin-bottom:5px">
+        <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true"></a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true"></a>
+    </div>
+</div>
+<table id="user" title="用户信息">
+
 </table>
-
-
-
-</body>
-</html>
+<%@ include file="/crm/footer.jsp" %>

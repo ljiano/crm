@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -65,8 +66,11 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public List<Map> findUser(Map param) {
-        return null;
+    public Map tableUser(Map param) {
+        Map result = new HashMap();
+        result.put("rows", userDao.findUserInfo(param));
+        result.put("total", userDao.findCountUsers());
+        return result;
     }
 
     @Override

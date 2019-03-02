@@ -42,7 +42,7 @@ public interface IUserService {
      */
     public void deleteUser(User user);
 
-    public List<Map> findUser(Map param);
+    public Map tableUser(Map param);
 
     public List<User> findUserInfo(Map param);
 

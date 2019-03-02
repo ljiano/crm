@@ -4,10 +4,7 @@ import com.ljo.crm.pojo.User;
 import com.ljo.crm.web.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -42,5 +39,11 @@ public class UserController {
     public String removeUser(@PathVariable Integer id) {
         userService.removeUser(id);
         return "redirect:/user/users";
+    }
+
+    @GetMapping("/table")
+    @ResponseBody
+    public Object tableProducts(@RequestParam Map param){
+        return userService.tableUser(param);
     }
 }

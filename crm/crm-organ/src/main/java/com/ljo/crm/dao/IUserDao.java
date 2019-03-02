@@ -15,11 +15,13 @@ public interface IUserDao extends BaseDao<User, Integer> {
      * 删除用户 /逻辑删除
      * @param id
      */
-    public void removeUser(Integer id);
+    void removeUser(Integer id);
 
-    public List<Map> findUser(Map param);
+    List<Map> findUser(Map param);
 
-    public List<User> findUserInfo(Map param);
+    List<User> findUserInfo(Map param);
 
-    public void updateUser(Integer id, Map useMap);
+    void updateUser(Integer id, Map useMap);
+
+    Long findCountUsers();
 }

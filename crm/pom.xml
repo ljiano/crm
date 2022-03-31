@@ -17,7 +17,7 @@
         <module>crm-dc</module>
     </modules>
     <properties>
-        <org-springframework-version>4.3.16.RELEASE</org-springframework-version>
+        <org-springframework-version>5.3.18</org-springframework-version>
         <hibernateVersion>4.3.5.Final</hibernateVersion>
         <jstlVersion>1.2</jstlVersion>
         <taglibVersion>1.1.2</taglibVersion>
